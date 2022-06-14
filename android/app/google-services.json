@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "616242790288",
+    "project_id": "sosite-7f912",
+    "storage_bucket": "sosite-7f912.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616242790288:android:be4b453c498bf3c4087d15",
+        "android_client_info": {
+          "package_name": "com.toic.sosite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616242790288-dgo4bhkb8u5cs5iidl924am2mjjaobaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgLEWxA_BxaQFMbNy4QlrugRaSGgw7mxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616242790288-dgo4bhkb8u5cs5iidl924am2mjjaobaq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "616242790288-lscgbsd00e6sef1ugum9hn0mfoiqcpij.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.toic.sosite"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
