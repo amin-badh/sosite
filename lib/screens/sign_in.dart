@@ -25,10 +25,6 @@ class _SignInScreenState extends State<SignInScreen> {
   static const signIn = "SIGN";
   String state = getCode;
 
-  Future<bool> _onWillPop() async {
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

@@ -7,9 +7,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/screens/home.dart';
 import 'package:sosite/screens/sign_in.dart';
 import 'package:sosite/utils/themes.dart';
+import 'package:sosite/verify.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -45,6 +47,8 @@ class _AppState extends State<App> {
       theme: Themes.appThemeData(),
       routes: {
         SignInScreen.routeName: (context) => const SignInScreen(),
+        Verify.routeName: (context) => const Verify(),
+        CreateAccountScreen.routeName: (context) => const CreateAccountScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
       },
       home: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -71,7 +75,7 @@ class _AppState extends State<App> {
                 if (user == null) {
                   _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
                 } else {
-                  _navigatorKey.currentState!.pushReplacementNamed(HomeScreen.routeName);
+                  _navigatorKey.currentState!.pushReplacementNamed(Verify.routeName);
                 }
               });
             }
