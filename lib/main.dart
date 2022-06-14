@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sosite/screens/home.dart';
@@ -29,6 +30,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'SOSITE',
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -45,29 +47,39 @@ class _AppState extends State<App> {
         SignInScreen.routeName: (context) => const SignInScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
       },
-      home: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
+      home: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+          systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+          systemNavigationBarDividerColor: null,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
         ),
-        builder: (_, snapshot) {
-          /// TODO
-          if (snapshot.hasError) return const SizedBox();
+        child: FutureBuilder(
+          future: Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform,
+          ),
+          builder: (_, snapshot) {
+            /// TODO
+            if (snapshot.hasError) return const SizedBox();
 
-          if (snapshot.connectionState == ConnectionState.done) {
-            FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
+            if (snapshot.connectionState == ConnectionState.done) {
+              FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
 
-            FirebaseAuth.instance.userChanges().listen((User? user) {
-              if (user == null) {
-                _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
-              } else {
-                _navigatorKey.currentState!.pushReplacementNamed(HomeScreen.routeName);
-              }
-            });
-          }
+              FirebaseAuth.instance.userChanges().listen((User? user) {
+                if (user == null) {
+                  _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
+                } else {
+                  _navigatorKey.currentState!.pushReplacementNamed(HomeScreen.routeName);
+                }
+              });
+            }
 
-          /// TODO: Loading Screen
-          return const Scaffold();
-        },
+            /// TODO: Loading Screen
+            return const Scaffold();
+          },
+        ),
       ),
     );
   }

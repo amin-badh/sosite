@@ -3,5 +3,8 @@
     "validPhoneNumber": "Please enter a valid phone number",
     "signIn": "Sign In",
     "support": "Support",
-    "createAccount": "Create Account"
+    "createAccount": "Create Account",
+    "getCode": "Get Code",
+    "code": "Code",
+    "validCode": "Please enter a valid code"
 }
