@@ -19,6 +19,9 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+  static const getCode = "CODE";
+  static const signIn = "SIGN";
+  String state = getCode;
 
   @override
   Widget build(BuildContext context) {

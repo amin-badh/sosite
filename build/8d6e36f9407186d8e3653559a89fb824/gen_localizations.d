@@ -1,0 +1,1 @@
+ C:\\Users\\badh\\Code\\TOIC\\sosite\\.dart_tool\\flutter_gen\\gen_l10n\\app_localizations_en.dart C:\\Users\\badh\\Code\\TOIC\\sosite\\.dart_tool\\flutter_gen\\gen_l10n\\app_localizations.dart:  C:\\Users\\badh\\Code\\TOIC\\sosite\\l10n.yaml C:\\Users\\badh\\Code\\TOIC\\sosite\\lib/l10n\\app_en.arb
