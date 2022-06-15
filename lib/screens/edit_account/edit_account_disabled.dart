@@ -2,23 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:sosite/utils/Utils.dart';
-import 'package:sosite/widgets/app_drawer.dart';
 
-class WalletScreen extends StatefulWidget {
-  const WalletScreen({Key? key}) : super(key: key);
-  static const routeName = '/wallet';
-
-  @override
-  State<WalletScreen> createState() => _WalletScreenState();
-}
-
-class _WalletScreenState extends State<WalletScreen> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
+class EditAccountDisabledScreen extends StatelessWidget {
+  const EditAccountDisabledScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _key,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,14 +18,14 @@ class _WalletScreenState extends State<WalletScreen> {
               children: [
                 const SizedBox(width: 16),
                 IconButton(
-                  onPressed: () => _key.currentState!.openDrawer(),
-                  icon: const Icon(Icons.menu, size: 32),
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back, size: 32),
                   splashRadius: 28,
-                  tooltip: 'Menu',
+                  tooltip: 'Back',
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  "Wallet",
+                  "Edit Account",
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
@@ -49,6 +39,7 @@ class _WalletScreenState extends State<WalletScreen> {
               child: ScrollConfiguration(
                 behavior: NoGlowScrollBehaviour(),
                 child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   children: [
                     const SizedBox(height: 12),
                   ],
@@ -58,7 +49,6 @@ class _WalletScreenState extends State<WalletScreen> {
           ],
         ),
       ),
-      drawer: const AppDrawer(selected: 'wallet'),
     );
   }
 }

@@ -190,9 +190,7 @@ class _HomeDisabledScreenState extends State<HomeDisabledScreen> {
         ),
         child: FloatingActionButton.extended(
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-          },
+          onPressed: () {},
           label: Text(
             "Call Emergency",
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
