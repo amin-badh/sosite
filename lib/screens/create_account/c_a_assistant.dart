@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sosite/data/constants.dart';
 import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/verify.dart';
+import 'package:sosite/widgets/create_account_text.dart';
 
 class CreateAccountAssistantScreen extends StatefulWidget {
   const CreateAccountAssistantScreen({Key? key}) : super(key: key);
@@ -277,7 +278,8 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                                           'role': "Assistant",
                                         }).then(
                                           (value) {
-                                            Navigator.of(context).pushReplacementNamed(Verify.routeName);
+                                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                                VerifyRole.routeName, (Route<dynamic> route) => false);
                                           },
                                           onError: (e) {
                                             setState(() => _isLoading = false);

@@ -10,8 +10,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/screens/create_account/c_a_assistant.dart';
 import 'package:sosite/screens/create_account/c_a_disable.dart';
+import 'package:sosite/screens/edit_account.dart';
+import 'package:sosite/screens/history.dart';
 import 'package:sosite/screens/home.dart';
+import 'package:sosite/screens/settings.dart';
 import 'package:sosite/screens/sign_in.dart';
+import 'package:sosite/screens/wallet.dart';
 import 'package:sosite/utils/themes.dart';
 import 'package:sosite/verify.dart';
 import 'firebase_options.dart';
@@ -49,11 +53,16 @@ class _AppState extends State<App> {
       theme: Themes.appThemeData(),
       routes: {
         SignInScreen.routeName: (context) => const SignInScreen(),
-        Verify.routeName: (context) => const Verify(),
+        VerifyAccount.routeName: (context) => const VerifyAccount(),
         CreateAccountScreen.routeName: (context) => const CreateAccountScreen(),
         CreateAccountDisabledScreen.routeName: (context) => const CreateAccountDisabledScreen(),
         CreateAccountAssistantScreen.routeName: (context) => const CreateAccountAssistantScreen(),
+        VerifyRole.routeName: (context) => const VerifyRole(),
         HomeScreen.routeName: (context) => const HomeScreen(),
+        EditAccountScreen.routeName: (context) => const EditAccountScreen(),
+        WalletScreen.routeName: (context) => const WalletScreen(),
+        HistoryScreen.routeName: (context) => const HistoryScreen(),
+        SettingsScreen.routeName: (context) => const SettingsScreen(),
       },
       home: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
@@ -79,7 +88,7 @@ class _AppState extends State<App> {
                 if (user == null) {
                   _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
                 } else {
-                  _navigatorKey.currentState!.pushReplacementNamed(Verify.routeName);
+                  _navigatorKey.currentState!.pushReplacementNamed(VerifyAccount.routeName);
                 }
               });
             }
