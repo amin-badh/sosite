@@ -39,7 +39,7 @@ class Constants {
       fillColor: Colors.white,
       enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.primary.withOpacity(.6), width: 1.0)),
+              BorderSide(color: Theme.of(context).colorScheme.onSurface.withOpacity(.6), width: 1.0)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.0)),
       errorBorder: OutlineInputBorder(

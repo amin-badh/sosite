@@ -23,9 +23,9 @@ class Verify extends StatelessWidget {
           WidgetsBinding.instance.addPostFrameCallback((_){
             if (snapshot.hasData) {
               if (snapshot.data!.exists) {
-                Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+                Navigator.of(context).pushNamedAndRemoveUntil(HomeScreen.routeName, (Route<dynamic> route) => false);
               } else {
-                Navigator.of(context).pushReplacementNamed(CreateAccountScreen.routeName);
+                Navigator.of(context).pushNamed(CreateAccountScreen.routeName);
               }
             } else if (snapshot.hasError) {
               if (kDebugMode) {

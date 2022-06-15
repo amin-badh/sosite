@@ -51,7 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       flex: 1,
                       child: Align(
                         alignment: const Alignment(0, 0),
-                        child: Opacity(opacity: 0.85, child: Image.asset('assets/images/sosite_text.png')),
+                        child: SizedBox(width: 185, child: Image.asset('assets/images/sosite_text.png')),
                       ),
                     ),
                     Container(
@@ -146,9 +146,16 @@ class _SignInScreenState extends State<SignInScreen> {
                                             );
 
                                             // Sign the user in (or link) with the credential
-                                            await auth.signInWithCredential(credential);
-
-                                            setState(() => _isLoading = false);
+                                            await auth.signInWithCredential(credential).then(
+                                                  (value) => setState(() => _isLoading = false),
+                                                  onError: (e) {
+                                                    setState(() => _isLoading = false);
+                                                    Constants.showSnackBar(context, e.message);
+                                                    if (kDebugMode) {
+                                                      print(e.toString());
+                                                    }
+                                                  },
+                                                );
                                           }
                                         }
                                       },
@@ -197,7 +204,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   RichText(
                                     text: TextSpan(
-                                      text: appLocal.createAccount,
+                                      text: "Privacy Policy",
 
                                       /// TODO
                                       recognizer: TapGestureRecognizer()..onTap = () {},

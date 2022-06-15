@@ -9,7 +9,7 @@ class Themes {
       primaryColor: const Color(0xff356FCC),
       colorScheme: ColorScheme(
           primary: const Color(0xff356FCC),
-          secondary: const Color(0xFFbd4301),
+          secondary: const Color(0xFFCC35BD),
           surface: Colors.grey[50]!,
           background: Colors.grey[50]!,
           error: Colors.red[700]!,

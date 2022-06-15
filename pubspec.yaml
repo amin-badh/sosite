@@ -41,6 +41,8 @@ dependencies:
   firebase_auth: ^3.3.19
   intl: ^0.17.0
   google_fonts: ^3.0.1
+  email_validator: ^2.0.1
+  country_picker: ^2.0.15
 
 dev_dependencies:
   flutter_test:

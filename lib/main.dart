@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sosite/screens/create_account.dart';
+import 'package:sosite/screens/create_account/c_a_assistant.dart';
+import 'package:sosite/screens/create_account/c_a_disable.dart';
 import 'package:sosite/screens/home.dart';
 import 'package:sosite/screens/sign_in.dart';
 import 'package:sosite/utils/themes.dart';
@@ -49,6 +51,8 @@ class _AppState extends State<App> {
         SignInScreen.routeName: (context) => const SignInScreen(),
         Verify.routeName: (context) => const Verify(),
         CreateAccountScreen.routeName: (context) => const CreateAccountScreen(),
+        CreateAccountDisabledScreen.routeName: (context) => const CreateAccountDisabledScreen(),
+        CreateAccountAssistantScreen.routeName: (context) => const CreateAccountAssistantScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
       },
       home: AnnotatedRegion<SystemUiOverlayStyle>(
