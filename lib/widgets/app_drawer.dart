@@ -14,9 +14,10 @@ import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/drawer_list_tile.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key, required this.selected}) : super(key: key);
+  const AppDrawer({Key? key, required this.selected, this.rebuild}) : super(key: key);
 
   final String selected;
+  final Function? rebuild;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class AppDrawer extends StatelessWidget {
                         tooltip: "Edit Account",
                         icon: const Icon(Icons.edit_outlined),
                         splashRadius: 24,
-                          onPressed: () {
+                        onPressed: () {
                           Navigator.pop(context);
                           if (selected != 'edit') {
                             Navigator.pushNamed(context, EditAccountScreen.routeName);
@@ -103,7 +104,11 @@ class AppDrawer extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                         if (selected != 'settings') {
-                          Navigator.pushNamed(context, SettingsScreen.routeName);
+                          Navigator.pushNamed(context, SettingsScreen.routeName).then((value) {
+                            if (selected == 'home' && rebuild != null) {
+                              rebuild!();
+                            }
+                          });
                         }
                       },
                     ),

@@ -2,6 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sosite/data/constants.dart';
 import 'package:sosite/screens/history.dart';
 import 'package:sosite/screens/wallet.dart';
 import 'package:sosite/utils/Data.dart';
@@ -183,23 +185,38 @@ class _HomeDisabledScreenState extends State<HomeDisabledScreen> {
           ],
         ),
       ),
-      drawer: const AppDrawer(selected: 'home'),
-      floatingActionButton: Theme(
-        data: Theme.of(context).copyWith(
-          colorScheme: Theme.of(context).colorScheme.copyWith(secondary: Colors.red[900]),
-        ),
-        child: FloatingActionButton.extended(
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-          onPressed: () {},
-          label: Text(
-            "Call Emergency",
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1,
-                ),
-          ),
-        ),
+      drawer: AppDrawer(
+        selected: 'home',
+        rebuild: () => setState(() {}),
+      ),
+      floatingActionButton: FutureBuilder(
+        future: SharedPreferences.getInstance(),
+        builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
+          if (snapshot.hasData) {
+            bool emb = snapshot.data!.getBool(Constants.embKey) ?? true;
+            return emb
+                ? Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme: Theme.of(context).colorScheme.copyWith(secondary: Colors.red[900]),
+                    ),
+                    child: FloatingActionButton.extended(
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+                      onPressed: () {},
+                      label: Text(
+                        "Call Emergency",
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                              color: Theme.of(context).colorScheme.background,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1,
+                            ),
+                      ),
+                    ),
+                  )
+                : const SizedBox();
+          } else {
+            return const SizedBox();
+          }
+        },
       ),
     );
   }

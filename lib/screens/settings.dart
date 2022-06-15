@@ -1,7 +1,12 @@
 /// Created by Amin BADH on 15 Jun, 2022
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sosite/data/constants.dart';
+import 'package:sosite/utils/locale_provider.dart';
 import 'package:sosite/widgets/app_drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -16,6 +21,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return Scaffold(
       key: _key,
       body: SafeArea(
@@ -34,16 +41,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  "Settings",
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 24,
-                      ),
+                  appLocal.settings,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline5
+                      ?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 6),
-            Divider(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3), height: 1),
+            Divider(color: Theme
+                .of(context)
+                .colorScheme
+                .onBackground
+                .withOpacity(0.3), height: 1),
             Expanded(
               child: ListView(
                 children: [
@@ -54,15 +69,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         Text(
                           "Language",
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                              ),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
                         ),
                         const SizedBox(height: 6),
                       ],
                     ),
-                    subtitle: Text(getLocal()),
+                    subtitle: Text(
+                      "Change the app's language",
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(
+                        color: Colors.grey[900]?.withOpacity(0.7),
+                        fontSize: 14,
+                      ),
+                    ),
                     onTap: () {
                       showDialog(
                           context: context,
@@ -83,7 +112,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     children: [
                                       const SizedBox(height: 18),
                                       Divider(
-                                        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
+                                        color: Theme
+                                            .of(context)
+                                            .colorScheme
+                                            .onBackground
+                                            .withOpacity(0.3),
                                         height: 1,
                                       ),
                                       SizedBox(
@@ -94,7 +127,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                             return ListTile(
                                               title: Text(
                                                 languages[index]['name']!,
-                                                style: Theme.of(context).textTheme.bodyText2,
+                                                style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .bodyText2,
                                               ),
                                               leading: Radio<String>(
                                                 value: languages[index]['code']!,
@@ -111,7 +147,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         ),
                                       ),
                                       Divider(
-                                        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
+                                        color: Theme
+                                            .of(context)
+                                            .colorScheme
+                                            .onBackground
+                                            .withOpacity(0.3),
                                         height: 1,
                                       ),
                                     ],
@@ -124,8 +164,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   child: const Text('CANCEL'),
                                 ),
                                 TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
                                     Navigator.pop(context);
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    if (selectedRadio == 'en') {
+                                      prefs.setString(Constants.localeKey, 'en');
+                                      localeProvider.setLocale(const Locale('en'));
+                                    } else if (selectedRadio == 'fr') {
+                                      prefs.setString(Constants.localeKey, 'fr');
+                                      localeProvider.setLocale(const Locale('fr'));
+                                    }
                                   },
                                   child: const Text('APPLY'),
                                 ),
@@ -134,24 +183,102 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           });
                     },
                   ),
-                  Divider(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.2)),
+                  Divider(color: Theme
+                      .of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(0.2)),
+                  FutureBuilder(
+                      future: SharedPreferences.getInstance(),
+                      builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
+                        if (snapshot.hasData) {
+                          bool emb = snapshot.data!.getBool(Constants.embKey) ?? true;
+
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Emergency Button",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                              ],
+                            ),
+                            subtitle: Text(
+                              "Display emergency button in home screen",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(
+                                color: Colors.grey[900]?.withOpacity(0.7),
+                                fontSize: 14,
+                              ),
+                            ),
+                            trailing: Switch(value: emb, onChanged: (val) {
+                              snapshot.data!.setBool(Constants.embKey, val);
+                              setState(() {});
+                            }),
+                            onTap: () {
+                              snapshot.data!.setBool(Constants.embKey, !emb);
+                              setState(() {});
+                            },
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      }
+                  ),
+                  Divider(color: Theme
+                      .of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(0.2)),
                   ListTile(
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Language",
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                              ),
+                          "Help",
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
                         ),
                         const SizedBox(height: 6),
                       ],
                     ),
-                    subtitle: Text(getLocal()),
+                    subtitle: Text(
+                      "Visit the help page on sosite.org",
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(
+                        color: Colors.grey[900]?.withOpacity(0.7),
+                        fontSize: 14,
+                      ),
+                    ),
+                    trailing: const Icon(Icons.open_in_new),
                     onTap: () {},
                   ),
+                  Divider(color: Theme
+                      .of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(0.2)),
                 ],
               ),
             ),

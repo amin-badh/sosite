@@ -6,5 +6,6 @@
     "createAccount": "Create Account",
     "getCode": "Get Code",
     "code": "Code",
-    "validCode": "Please enter a valid code"
+    "validCode": "Please enter a valid code",
+    "settings": "Settings"
 }

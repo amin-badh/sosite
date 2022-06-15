@@ -7,6 +7,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sosite/data/constants.dart';
 import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/screens/create_account/c_a_assistant.dart';
 import 'package:sosite/screens/create_account/c_a_disable.dart';
@@ -16,6 +19,7 @@ import 'package:sosite/screens/home.dart';
 import 'package:sosite/screens/settings.dart';
 import 'package:sosite/screens/sign_in.dart';
 import 'package:sosite/screens/wallet.dart';
+import 'package:sosite/utils/locale_provider.dart';
 import 'package:sosite/utils/themes.dart';
 import 'package:sosite/verify.dart';
 import 'firebase_options.dart';
@@ -37,67 +41,98 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SOSITE',
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-      ],
-      navigatorKey: _navigatorKey,
-      theme: Themes.appThemeData(),
-      routes: {
-        SignInScreen.routeName: (context) => const SignInScreen(),
-        VerifyAccount.routeName: (context) => const VerifyAccount(),
-        CreateAccountScreen.routeName: (context) => const CreateAccountScreen(),
-        CreateAccountDisabledScreen.routeName: (context) => const CreateAccountDisabledScreen(),
-        CreateAccountAssistantScreen.routeName: (context) => const CreateAccountAssistantScreen(),
-        VerifyRole.routeName: (context) => const VerifyRole(),
-        HomeScreen.routeName: (context) => const HomeScreen(),
-        EditAccountScreen.routeName: (context) => const EditAccountScreen(),
-        WalletScreen.routeName: (context) => const WalletScreen(),
-        HistoryScreen.routeName: (context) => const HistoryScreen(),
-        SettingsScreen.routeName: (context) => const SettingsScreen(),
-      },
-      home: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-          systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-          systemNavigationBarDividerColor: null,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
-        child: FutureBuilder(
-          future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform,
-          ),
-          builder: (_, snapshot) {
-            /// TODO
-            if (snapshot.hasError) return const SizedBox();
-
-            if (snapshot.connectionState == ConnectionState.done) {
-              FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
-
-              FirebaseAuth.instance.userChanges().listen((User? user) {
-                if (user == null) {
-                  _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
-                } else {
-                  _navigatorKey.currentState!.pushReplacementNamed(VerifyAccount.routeName);
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => LocaleProvider(),
+      builder: (context, child) {
+        final provider = Provider.of<LocaleProvider>(context);
+        return FutureBuilder(
+          future: SharedPreferences.getInstance(),
+          builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+            if (snapshot.hasData) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                switch (snapshot.data!.getString(Constants.localeKey)) {
+                  case 'en':
+                    if (provider.locale != const Locale('en')) {
+                      provider.setLocale(const Locale('en'));
+                    }
+                    break;
+                  case 'fr':
+                    if (provider.locale != const Locale('fr')) {
+                      provider.setLocale(const Locale('fr'));
+                    }
+                    break;
                 }
               });
-            }
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'SOSITE',
+                locale: provider.locale,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('fr'),
+                ],
+                navigatorKey: _navigatorKey,
+                theme: Themes.appThemeData(),
+                routes: {
+                  SignInScreen.routeName: (context) => const SignInScreen(),
+                  VerifyAccount.routeName: (context) => const VerifyAccount(),
+                  CreateAccountScreen.routeName: (context) => const CreateAccountScreen(),
+                  CreateAccountDisabledScreen.routeName: (context) => const CreateAccountDisabledScreen(),
+                  CreateAccountAssistantScreen.routeName: (context) => const CreateAccountAssistantScreen(),
+                  VerifyRole.routeName: (context) => const VerifyRole(),
+                  HomeScreen.routeName: (context) => const HomeScreen(),
+                  EditAccountScreen.routeName: (context) => const EditAccountScreen(),
+                  WalletScreen.routeName: (context) => const WalletScreen(),
+                  HistoryScreen.routeName: (context) => const HistoryScreen(),
+                  SettingsScreen.routeName: (context) => const SettingsScreen(),
+                },
+                home: AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle(
+                    statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+                    systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+                    systemNavigationBarDividerColor: null,
+                    systemNavigationBarIconBrightness: Brightness.dark,
+                    statusBarIconBrightness: Brightness.dark,
+                    statusBarBrightness: Brightness.light,
+                  ),
+                  child: FutureBuilder(
+                    future: Firebase.initializeApp(
+                      options: DefaultFirebaseOptions.currentPlatform,
+                    ),
+                    builder: (_, snapshot) {
+                      /// TODO
+                      if (snapshot.hasError) return const SizedBox();
 
-            /// TODO: Loading Screen
-            return const Scaffold();
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
+
+                        FirebaseAuth.instance.userChanges().listen((User? user) {
+                          if (user == null) {
+                            _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
+                          } else {
+                            _navigatorKey.currentState!.pushReplacementNamed(VerifyAccount.routeName);
+                          }
+                        });
+                      }
+
+                      /// TODO: Loading Screen
+                      return const Scaffold();
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return Container(color: Colors.grey[50]);
+            }
           },
-        ),
-      ),
+        );
+      },
     );
   }
 }

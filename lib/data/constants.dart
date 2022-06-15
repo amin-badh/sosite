@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 class Constants {
 
+  static const String localeKey = "LOCALEKEY";
+  static const String embKey = "EMBKEY";
+
   static void showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
