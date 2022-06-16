@@ -114,9 +114,11 @@ class _AppState extends State<App> {
 
                         FirebaseAuth.instance.userChanges().listen((User? user) {
                           if (user == null) {
-                            _navigatorKey.currentState!.pushReplacementNamed(SignInScreen.routeName);
+                            _navigatorKey.currentState!
+                                .pushNamedAndRemoveUntil(SignInScreen.routeName, (Route<dynamic> route) => false);
                           } else {
-                            _navigatorKey.currentState!.pushReplacementNamed(VerifyAccount.routeName);
+                            _navigatorKey.currentState!
+                                .pushNamedAndRemoveUntil(VerifyAccount.routeName, (Route<dynamic> route) => false);
                           }
                         });
                       }

@@ -77,7 +77,6 @@ class _HomeDisabledScreenState extends State<HomeDisabledScreen> {
                               onTap: () {},
                               child: SizedBox(
                                 height: 200,
-                                width: 200,
                                 child: Padding(
                                   padding: const EdgeInsets.fromLTRB(24, 12, 18, 0),
                                   child: Column(

@@ -11,6 +11,7 @@ class CreateAccountTopWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 24),
         Text(
           "Create Account",
           style: Theme.of(context).textTheme.headline5?.copyWith(

@@ -42,7 +42,9 @@ class AppDrawer extends StatelessWidget {
                           color: Colors.amber,
                         ),
                       ),
-                      title: Text(DataSingleton.userDoc!.get('fullName')),
+                      title: Text(
+                        "${DataSingleton.userDoc!.get('firstName')} ${DataSingleton.userDoc!.get('lastName')}",
+                      ),
                       subtitle: Text(
                         DataSingleton.userDoc!.get('phoneNum'),
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
@@ -53,12 +55,16 @@ class AppDrawer extends StatelessWidget {
                       ),
                       trailing: IconButton(
                         tooltip: "Edit Account",
-                        icon: const Icon(Icons.edit_outlined),
+                        icon: const Icon(Icons.edit),
                         splashRadius: 24,
                         onPressed: () {
                           Navigator.pop(context);
                           if (selected != 'edit') {
-                            Navigator.pushNamed(context, EditAccountScreen.routeName);
+                            Navigator.pushNamed(context, EditAccountScreen.routeName).then((value) {
+                              if (rebuild != null) {
+                                rebuild!();
+                              }
+                            });
                           }
                         },
                       ),

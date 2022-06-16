@@ -23,7 +23,7 @@ class CreateAccountDisabledScreen extends StatefulWidget {
 
 class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScreen> {
   final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _disabilityDescriptionController = TextEditingController();
@@ -80,11 +80,11 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                           const SizedBox(height: sep),
                           TextFormField(
                             keyboardType: TextInputType.name,
-                            controller: _fullNameController,
+                            controller: _lastNameController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Full Name",
-                              "Emmy Freeman",
+                              "Last Name",
+                              "Freeman",
                               context,
                             ),
                             validator: (val) => val!.trim().isEmpty ? "Please enter your full name" : null,
@@ -313,7 +313,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                                         setState(() => _isLoading = true);
                                         FirebaseFirestore.instance.collection('users').doc(auth.currentUser?.uid).set({
                                           'firstName': _firstNameController.text,
-                                          'fullName': _fullNameController.text,
+                                          'lastName': _lastNameController.text,
                                           'phoneNum': auth.currentUser?.phoneNumber,
                                           'email': _emailController.text,
                                           'birthDate': selectedDate,
