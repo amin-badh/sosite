@@ -80,12 +80,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                   )
                                 : TextFormField(
                                     keyboardType: TextInputType.number,
-                                    maxLength: 6,
                                     controller: _codeController,
                                     style: Theme.of(context).textTheme.bodyText1,
                                     decoration: Constants.inputDecoration(
                                       appLocal.code,
-                                      "000000",
+                                      "XXXXXX",
                                       context,
                                     ),
                                     validator: (val) => val!.length != 6 ? appLocal.validCode : null,
