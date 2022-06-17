@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sosite/screens/get_help/get_help_assistants.dart';
 import 'package:sosite/screens/get_help/get_help_info.dart';
 import 'package:sosite/utils/constants.dart';
 import 'package:sosite/screens/create_account.dart';
@@ -93,6 +94,7 @@ class _AppState extends State<App> {
                   HistoryScreen.routeName: (context) => const HistoryScreen(),
                   SettingsScreen.routeName: (context) => const SettingsScreen(),
                   GetHelpInfoScreen.routeName: (context) => const GetHelpInfoScreen(),
+                  AssistantsScreen.routeName: (context) => const AssistantsScreen(),
                 },
                 home: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: SystemUiOverlayStyle(

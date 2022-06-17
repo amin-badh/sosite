@@ -12,4 +12,5 @@ class DataSingleton {
   DataSingleton._internal();
 
   static DocumentSnapshot<Map<String, dynamic>>? userDoc;
+  static Map<String, dynamic>? helpInfo;
 }

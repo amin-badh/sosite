@@ -1,11 +1,8 @@
 /// Created by Amin BADH on 15 Jun, 2022
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:country_picker/country_picker.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sosite/screens/get_help/get_help_assistants.dart';
 import 'package:sosite/utils/constants.dart';
 import 'package:sosite/utils/Data.dart';
 
@@ -19,10 +16,14 @@ class GetHelpInfoScreen extends StatefulWidget {
 
 class _GetHelpInfoScreenState extends State<GetHelpInfoScreen> {
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _hoursController = TextEditingController();
+  final TextEditingController _minutesController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -76,17 +77,86 @@ class _GetHelpInfoScreenState extends State<GetHelpInfoScreen> {
                       ),
                       const SizedBox(height: 24),
                       TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 5,
-                        controller: _descriptionController,
+                        keyboardType: TextInputType.number,
+                        controller: _hoursController,
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: Constants.inputDecoration(
-                          "Describe the help you need",
+                          "Hours needed to complete task",
                           "",
                           context,
                         ),
-                        validator: (val) => val!.trim().isEmpty ? "Please enter a description" : null,
+                        validator: (val) {
+                          try {
+                            int value = int.parse(val!);
+                            return (val.isNotEmpty && 0 <= value && value < 24) ? null : "Please enter a valid time";
+                          } catch (e) {
+                            return "Please enter a valid time";
+                          }
+                        },
                       ),
+                      const SizedBox(height: 24),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: _minutesController,
+                        style: Theme.of(context).textTheme.bodyText1,
+                        decoration: Constants.inputDecoration(
+                          "Minutes needed to complete task",
+                          "",
+                          context,
+                        ),
+                        validator: (val) {
+                          try {
+                            int value = int.parse(val!);
+                            int hours = int.parse(_hoursController.text);
+                            return (val.isNotEmpty &&
+                                    ((5 <= value && value <= 60) ||
+                                        (hours.toString().isNotEmpty && hours > 0 && 0 <= value && value <= 60)))
+                                ? null
+                                : "Please enter a valid time";
+                          } catch (e) {
+                            return "Please enter a valid time";
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        height: 56,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+                              DataSingleton.helpInfo = {
+                                'description': _descriptionController.text,
+                                'duration': DateTime(
+                                  0,
+                                  0,
+                                  0,
+                                  int.parse(_hoursController.text),
+                                  int.parse(_minutesController.text),
+                                ),
+                              };
+                              Navigator.of(context).pushNamed(AssistantsScreen.routeName);
+                            }
+                          },
+                          child: Text(
+                            "Next",
+                            style: theme.textTheme.bodyText2?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                              color: theme.colorScheme.onPrimary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
                     ],
                   ),
                 ),
