@@ -13,7 +13,7 @@ class Constants {
       SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(text),
-        duration: const Duration(seconds: 10),
+        // duration: const Duration(seconds: 10),
       ),
     );
   }
@@ -41,15 +41,12 @@ class Constants {
       filled: true,
       fillColor: Colors.white,
       enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.onSurface.withOpacity(.6), width: 1.0)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.0)),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface.withOpacity(.6), width: 1.0)),
+      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.0)),
       errorBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.error.withOpacity(.6), width: 1.0)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 1.0)),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.error.withOpacity(.6), width: 1.0)),
+      focusedErrorBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 1.0)),
     );
   }
 
@@ -61,15 +58,12 @@ class Constants {
       filled: true,
       fillColor: Colors.white,
       enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.primary.withOpacity(.6), width: 1.0)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.0)),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary.withOpacity(.6), width: 1.0)),
+      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.0)),
       errorBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.error.withOpacity(.6), width: 1.0)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 1.0)),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.error.withOpacity(.6), width: 1.0)),
+      focusedErrorBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 1.0)),
     );
   }
 

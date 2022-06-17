@@ -1,9 +1,9 @@
 /// Created by Amin BADH on 15 Jun, 2022
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sosite/data/constants.dart';
+import 'package:sosite/screens/get_help/get_help_info.dart';
+import 'package:sosite/utils/constants.dart';
 import 'package:sosite/screens/history.dart';
 import 'package:sosite/screens/wallet.dart';
 import 'package:sosite/utils/Data.dart';
@@ -70,11 +70,10 @@ class _HomeDisabledScreenState extends State<HomeDisabledScreen> {
                           Card(
                             color: Colors.grey[100],
                             child: InkWell(
-                              /// TODO
                               customBorder: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              onTap: () {},
+                              onTap: () => Navigator.of(context).pushNamed(GetHelpInfoScreen.routeName),
                               child: SizedBox(
                                 height: 200,
                                 child: Padding(

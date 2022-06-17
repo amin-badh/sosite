@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sosite/data/constants.dart';
+import 'package:sosite/utils/constants.dart';
 import 'package:sosite/screens/history.dart';
 import 'package:sosite/screens/wallet.dart';
 import 'package:sosite/utils/Data.dart';

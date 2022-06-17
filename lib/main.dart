@@ -9,7 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sosite/data/constants.dart';
+import 'package:sosite/screens/get_help/get_help_info.dart';
+import 'package:sosite/utils/constants.dart';
 import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/screens/create_account/c_a_assistant.dart';
 import 'package:sosite/screens/create_account/c_a_disable.dart';
@@ -91,6 +92,7 @@ class _AppState extends State<App> {
                   WalletScreen.routeName: (context) => const WalletScreen(),
                   HistoryScreen.routeName: (context) => const HistoryScreen(),
                   SettingsScreen.routeName: (context) => const SettingsScreen(),
+                  GetHelpInfoScreen.routeName: (context) => const GetHelpInfoScreen(),
                 },
                 home: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: SystemUiOverlayStyle(

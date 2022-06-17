@@ -6,7 +6,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sosite/data/constants.dart';
+import 'package:sosite/utils/constants.dart';
 import 'package:sosite/utils/Data.dart';
 
 class EditAccountDisabledScreen extends StatelessWidget {

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sosite/data/constants.dart';
+import 'package:sosite/utils/constants.dart';
 import 'package:sosite/utils/locale_provider.dart';
 import 'package:sosite/widgets/app_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sosite/data/constants.dart';
+import 'package:sosite/utils/constants.dart';
 import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/verify.dart';
 import 'package:sosite/widgets/create_account_text.dart';
