@@ -187,55 +187,6 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                       .colorScheme
                       .onBackground
                       .withOpacity(0.2)),
-                  FutureBuilder(
-                      future: SharedPreferences.getInstance(),
-                      builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
-                        if (snapshot.hasData) {
-                          bool emb = snapshot.data!.getBool(Constants.embKey) ?? true;
-
-                          return ListTile(
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Active Hours",
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      ?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                              ],
-                            ),
-                            subtitle: Text(
-                              "Activate Helping mode automatically  ",
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(
-                                color: Colors.grey[900]?.withOpacity(0.7),
-                                fontSize: 14,
-                              ),
-                            ),
-                            onTap: () {
-                              Constants.showSnackBar(context, "Work in progress");
-                            },
-                          );
-                        } else {
-                          return const SizedBox();
-                        }
-                      }
-                  ),
-                  Divider(color: Theme
-                      .of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(0.2)),
                   ListTile(
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

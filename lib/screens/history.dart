@@ -37,21 +37,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 Text(
                   "History",
                   style: Theme.of(context).textTheme.headline5?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24,
-                  ),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 24,
+                      ),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Divider(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3), height: 1),
             Expanded(
-              child: ScrollConfiguration(
-                behavior: NoGlowScrollBehaviour(),
-                child: ListView(
-                  children: [
-                    const SizedBox(height: 12),
-                  ],
+              child: Center(
+                child: Text(
+                  "Feature Under Development",
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
             ),

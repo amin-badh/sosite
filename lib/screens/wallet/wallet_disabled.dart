@@ -29,11 +29,14 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
             .snapshots(),
         builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
           double? balance;
+
           try {
-            balance = snapshot.data?.get('balance');
+            String? b = snapshot.data?.get('balance').toString();
+            balance = double.parse(b!);
           } catch (e) {
             balance = 0;
           }
+
           return Scaffold(
             key: _key,
             body: SafeArea(

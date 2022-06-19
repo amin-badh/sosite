@@ -28,8 +28,10 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
           .snapshots(),
       builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
         double? balance;
+
         try {
-          balance = snapshot.data?.get('balance');
+          String? b = snapshot.data?.get('balance').toString();
+          balance = double.parse(b!);
         } catch (e) {
           balance = 0;
         }
@@ -84,43 +86,25 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
                 ),
                 const SizedBox(height: 12),
                 Divider(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3), height: 1),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    const SizedBox(width: 20),
+                    Text(
+                      "Withdraw Funds",
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                            fontSize: 18,
+                          ),
+                    ),
+                  ],
+                ),
                 Expanded(
-                  child: ScrollConfiguration(
-                    behavior: NoGlowScrollBehaviour(),
-                    child: ListView(
-                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                      children: [
-                        Text(
-                          "Withdraw Funds",
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                                fontSize: 18,
-                              ),
-                        ),
-                        const SizedBox(height: 46),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/coming-soon.png',
-                                  width: MediaQuery.of(context).size.width * 0.75,
-                                ),
-                                Text(
-                                  "Feature Under Development",
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                                    fontSize: 10,
-                                    letterSpacing: 1,
-                                    color: Colors.grey[400]?.withOpacity(0.7),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                  child: Center(
+                    child: Text(
+                      "Feature Under Development",
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),
