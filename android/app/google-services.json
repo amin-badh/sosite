@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "616242790288-rghdh9f1ertdrak2bmu2bo6hlf7ilep0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toic.sosite",
+            "certificate_hash": "4f43e46a2ed4daa7ce23f8edee15c0b6495d245a"
+          }
+        },
+        {
           "client_id": "616242790288-dgo4bhkb8u5cs5iidl924am2mjjaobaq.apps.googleusercontent.com",
           "client_type": 3
         }

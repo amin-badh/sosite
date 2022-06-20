@@ -1,6 +1,7 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateAccountTopWidget extends StatelessWidget {
   const CreateAccountTopWidget({Key? key, this.des}) : super(key: key);
@@ -8,12 +9,14 @@ class CreateAccountTopWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 24),
         Text(
-          "Create Account",
+          appLocal.createAccount,
           style: Theme.of(context).textTheme.headline5?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 28,
@@ -24,7 +27,7 @@ class CreateAccountTopWidget extends StatelessWidget {
           child: Opacity(
             opacity: 0.7,
             child: Text(
-              des ?? "Enter you account details.",
+              des ?? appLocal.enterAccountDetails,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),

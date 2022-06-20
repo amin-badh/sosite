@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 14 Jun, 2022
+/// Created by Amin BADH on 14 Jun, 2022 *
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -203,7 +203,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   RichText(
                                     text: TextSpan(
-                                      text: "Privacy Policy",
+                                      text: appLocal.privacyPolicyUp,
 
                                       /// TODO
                                       recognizer: TapGestureRecognizer()..onTap = () {},

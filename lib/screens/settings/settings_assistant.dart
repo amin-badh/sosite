@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 16 Jun, 2022
+/// Created by Amin BADH on 16 Jun, 2022 *
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                   onPressed: () => _key.currentState!.openDrawer(),
                   icon: const Icon(Icons.menu, size: 32),
                   splashRadius: 28,
-                  tooltip: 'Menu',
+                  tooltip: appLocal.menu,
                 ),
                 const SizedBox(width: 16),
                 Text(
@@ -67,7 +67,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Language",
+                          appLocal.language,
                           style: Theme
                               .of(context)
                               .textTheme
@@ -81,7 +81,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                       ],
                     ),
                     subtitle: Text(
-                      "Change the app's language",
+                      appLocal.changeTheAppsLanguage,
                       style: Theme
                           .of(context)
                           .textTheme
@@ -97,7 +97,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                           builder: (context) {
                             String? selectedRadio = Localizations.localeOf(context).toString();
                             return AlertDialog(
-                              title: const Text('Select a language'),
+                              title: Text(appLocal.selectLanguage),
                               contentPadding: EdgeInsets.zero,
                               content: StatefulBuilder(
                                 builder: (BuildContext context, StateSetter setState) {
@@ -160,7 +160,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
-                                  child: const Text('CANCEL'),
+                                  child: Text(appLocal.cancelUpper),
                                 ),
                                 TextButton(
                                   onPressed: () async {
@@ -175,7 +175,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                                       localeProvider.setLocale(const Locale('fr'));
                                     }
                                   },
-                                  child: const Text('APPLY'),
+                                  child: Text(appLocal.applyUpper),
                                 ),
                               ],
                             );
@@ -192,7 +192,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Help",
+                          appLocal.help,
                           style: Theme
                               .of(context)
                               .textTheme
@@ -206,7 +206,7 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
                       ],
                     ),
                     subtitle: Text(
-                      "Visit the help page on sosite.org",
+                      appLocal.visitHelp,
                       style: Theme
                           .of(context)
                           .textTheme
@@ -232,14 +232,5 @@ class _SettingsAssistantScreenState extends State<SettingsAssistantScreen> {
       ),
       drawer: const AppDrawer(selected: 'settings'),
     );
-  }
-
-  String getLocal() {
-    switch (Localizations.localeOf(context).toString()) {
-      case 'en':
-        return "English";
-      default:
-        return "";
-    }
   }
 }

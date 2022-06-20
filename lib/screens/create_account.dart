@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 14 Jun, 2022
+/// Created by Amin BADH on 14 Jun, 2022 *
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,39 +6,7 @@ import 'package:sosite/screens/create_account/c_a_assistant.dart';
 import 'package:sosite/screens/create_account/c_a_disable.dart';
 import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/create_account_text.dart';
-
-// GestureDetector(
-//
-//   child: Container(
-//     height: 57,
-//     width: double.infinity,
-//     decoration: BoxDecoration(
-//       borderRadius: BorderRadius.circular(4),
-//       border: Border.all(
-//         color: Theme.of(context).colorScheme.onSurface.withOpacity(.6),
-//         width: 1,
-//       ),
-//       color: Colors.white,
-//     ),
-//     child: Row(
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         const SizedBox(width: 12),
-//         hasChanged ? Text(
-//           ,
-//           style: Theme.of(context).textTheme.bodyText1?.copyWith(
-//             color: Colors.grey[900],
-//           ),
-//         ) : Text(
-//           "",
-//           style: Theme.of(context).textTheme.bodyText1?.copyWith(
-//             color: Colors.grey[900]?.withOpacity(0.7),
-//           ),
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -46,6 +14,8 @@ class CreateAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return WillPopScope(
       onWillPop: () async {
         FirebaseAuth.instance.signOut();
@@ -62,7 +32,7 @@ class CreateAccountScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CreateAccountTopWidget(des: "Who Are You?"),
+                      CreateAccountTopWidget(des: appLocal.whoAreU),
                       const SizedBox(height: 72),
                       Card(
                         child: InkWell(
@@ -76,7 +46,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 Opacity(
                                   opacity: 0.9,
                                   child: Text(
-                                    "Disabled",
+                                    appLocal.disabled,
                                     style: Theme.of(context).textTheme.headline5?.copyWith(
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1,
@@ -131,7 +101,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 Opacity(
                                   opacity: 0.9,
                                   child: Text(
-                                    "Assistant",
+                                    appLocal.assistant,
                                     style: Theme.of(context).textTheme.headline5?.copyWith(
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1,

@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
@@ -9,7 +9,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sosite/utils/constants.dart';
-import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/verify.dart';
 import 'package:sosite/widgets/create_account_text.dart';
 
@@ -36,16 +35,13 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
 
   DateTime selectedDate = DateTime(DateTime.now().year);
   bool hasChanged = false;
-  String _currentGenderValue = 'Male';
   bool _agree = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final appLocal = AppLocalizations.of(context)!;
-    // just to remove the error
-    /// TODO delete.
-    appLocal.getCode;
+    String currentGenderValue = appLocal.male;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -70,11 +66,11 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _firstNameController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "First Name",
-                              "Emmy",
+                              appLocal.firstName,
+                              appLocal.emmy,
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter your first name" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validFirstName : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -82,11 +78,11 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _lastNameController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Last Name",
-                              "Freeman",
+                              appLocal.lastName,
+                              appLocal.freeman,
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter your last name" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validLastName : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -94,12 +90,12 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _emailController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Email Address",
-                              "emmy@examlpe.com",
+                              appLocal.emailAddress,
+                              appLocal.emmyEmail,
                               context,
                             ),
                             validator: (val) => val!.trim().isEmpty || !EmailValidator.validate(val)
-                                ? "Please enter a valid email"
+                                ? appLocal.validEmail
                                 : null,
                           ),
                           const SizedBox(height: sep),
@@ -108,7 +104,7 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _birthDateController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Birth Date",
+                              appLocal.birthDate,
                               "",
                               context,
                             ),
@@ -127,7 +123,7 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                               }
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
-                            validator: (val) => val!.trim().isEmpty ? "Please enter your birth date" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validBirthDate : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -135,7 +131,7 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _countryController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Country",
+                              appLocal.country,
                               "",
                               context,
                             ),
@@ -149,7 +145,7 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                               );
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
-                            validator: (val) => val!.trim().isEmpty ? "Please select your country" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validCountry : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -157,29 +153,29 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _idNumController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "ID Number",
-                              "xxxxxxxxx",
+                              appLocal.idNumber,
+                              "XXXXXXXX",
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter a valid ID number" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validIdNumber : null,
                           ),
                           const SizedBox(height: sep),
                           FormField<String>(
                             builder: (FormFieldState<String> state) {
                               return InputDecorator(
-                                decoration: Constants.inputDecoration("Gender", "", context),
-                                isEmpty: _currentGenderValue == '',
+                                decoration: Constants.inputDecoration(appLocal.gender, "", context),
+                                isEmpty: currentGenderValue == '',
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
-                                    value: _currentGenderValue,
+                                    value: currentGenderValue,
                                     isDense: true,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        _currentGenderValue = newValue ?? 'Male';
+                                        currentGenderValue = newValue ?? appLocal.male;
                                         state.didChange(newValue);
                                       });
                                     },
-                                    items: ["Male", "Female", "Other"].map((String value) {
+                                    items: [appLocal.male, appLocal.female, appLocal.other].map((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Text(
@@ -200,24 +196,24 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                             controller: _bioController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Bio",
+                              appLocal.bio,
                               "",
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter a bio" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validBio : null,
                           ),
                           const SizedBox(height: 12),
                           CheckboxListTile(
                             title: RichText(
                               text: TextSpan(
-                                text: "I agree to the ",
+                                text: "${appLocal.iAgreeOnThe} ",
                                 style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 0.3,
                                     ),
                                 children: [
                                   TextSpan(
-                                    text: "privacy policy",
+                                    text: appLocal.privacyPolicy,
 
                                     /// TODO
                                     recognizer: TapGestureRecognizer()..onTap = () {},
@@ -273,7 +269,7 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                                           'birthDate': selectedDate,
                                           'country': _countryController.text,
                                           'idNumber': _idNumController.text,
-                                          'gender': _currentGenderValue,
+                                          'gender': currentGenderValue,
                                           'bio': _bioController.text,
                                           'role': "Assistant",
                                         }).then(
@@ -300,7 +296,7 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                                       ),
                                     )
                                   : Text(
-                                      "Create Account",
+                                      appLocal.createAccount,
                                       style: theme.textTheme.bodyText2?.copyWith(
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1,

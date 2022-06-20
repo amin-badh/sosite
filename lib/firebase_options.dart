@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '616242790288',
     projectId: 'sosite-7f912',
     storageBucket: 'sosite-7f912.appspot.com',
+    androidClientId: '616242790288-rghdh9f1ertdrak2bmu2bo6hlf7ilep0.apps.googleusercontent.com',
     iosClientId: '616242790288-lscgbsd00e6sef1ugum9hn0mfoiqcpij.apps.googleusercontent.com',
     iosBundleId: 'com.toic.sosite',
   );

@@ -50,6 +50,8 @@ dependencies:
   flutter_picker: ^2.0.3
   location: ^4.4.0
   geoflutterfire: ^3.0.2
+  firebase_analytics: ^9.1.10
+  firebase_crashlytics: ^2.8.2
 
 dev_dependencies:
   flutter_test:

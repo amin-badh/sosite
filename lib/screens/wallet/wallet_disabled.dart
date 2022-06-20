@@ -1,12 +1,14 @@
-/// Created by Amin BADH on 16 Jun, 2022
+/// Created by Amin BADH on 16 Jun, 2022 *
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sosite/utils/constants.dart';
 import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/app_drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WalletDisabledScreen extends StatefulWidget {
   const WalletDisabledScreen({Key? key}) : super(key: key);
@@ -20,6 +22,8 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
@@ -51,11 +55,11 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                         onPressed: () => _key.currentState!.openDrawer(),
                         icon: const Icon(Icons.menu, size: 32),
                         splashRadius: 28,
-                        tooltip: 'Menu',
+                        tooltip: appLocal.menu,
                       ),
                       const SizedBox(width: 16),
                       Text(
-                        "Wallet",
+                        appLocal.wallet,
                         style: Theme.of(context).textTheme.headline5?.copyWith(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
@@ -68,7 +72,7 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                   const SizedBox(height: 12),
                   ListTile(
                     title: Text(
-                      "Balance",
+                      appLocal.balance,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             fontWeight: FontWeight.w600,
                             letterSpacing: 0.5,
@@ -94,7 +98,7 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                         children: [
                           Text(
-                            "Add Funds",
+                            appLocal.addFunds,
                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 0.5,
@@ -113,7 +117,7 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                                     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
                                     return AlertDialog(
-                                      title: const Text("Redeem Gift Card"),
+                                      title: Text(appLocal.redeemGiftCard),
                                       contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
                                       content: GestureDetector(
                                         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -128,12 +132,12 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                                                 controller: giftCardController,
                                                 style: Theme.of(context).textTheme.bodyText1,
                                                 decoration: Constants.inputDecoration(
-                                                  "Gift Card Code",
+                                                  appLocal.giftCardCode,
                                                   "XXXXXX",
                                                   context,
                                                 ),
                                                 validator: (val) =>
-                                                    val!.trim().isEmpty ? "Please enter your gift card code" : null,
+                                                    val!.trim().isEmpty ? appLocal.validGiftCard : null,
                                               ),
                                             ],
                                           ),
@@ -144,7 +148,7 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text("CANCEL"),
+                                          child: Text(appLocal.cancelUpper),
                                         ),
                                         TextButton(
                                           onPressed: () {
@@ -161,17 +165,22 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                                                       .collection('wallet')
                                                       .doc('data')
                                                       .set({'balance': balance! + value.docs[0].get('amount')}).then(
-                                                    (value) => Navigator.of(context).pop(),
+                                                    (value) => Navigator.of(context).pop(), onError: (e) {
+                                                      if (kDebugMode) {
+                                                        print(e.toString());
+                                                      }
+                                                      Constants.showSnackBar(context, e.message);
+                                                  }
                                                   );
                                                 } else {
                                                   Navigator.of(context).pop();
                                                   Constants.showSnackBar(
-                                                      _key.currentContext!, "Gift Card Code doesn't exist!");
+                                                      _key.currentContext!, appLocal.giftCardExistNot);
                                                 }
                                               });
                                             }
                                           },
-                                          child: const Text("REDEEM"),
+                                          child: Text(appLocal.redeemUpper),
                                         ),
                                       ],
                                     );
@@ -185,7 +194,7 @@ class _WalletDisabledScreenState extends State<WalletDisabledScreen> {
                                 padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: ListTile(
                                   title: Text(
-                                    "Gift Card",
+                                    appLocal.giftCard,
                                     style: Theme.of(context).textTheme.bodyText2,
                                   ),
                                   leading: const Icon(Icons.card_giftcard),

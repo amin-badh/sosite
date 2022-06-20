@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 14 Jun, 2022
+/// Created by Amin BADH on 14 Jun, 2022 *
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,12 +16,12 @@ class VerifyAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = FirebaseAuth.instance;
     final db = FirebaseFirestore.instance;
-    
+
     return Scaffold(
       body: FutureBuilder(
         future: db.collection('users').doc(auth.currentUser?.uid).get(),
         builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
-          WidgetsBinding.instance.addPostFrameCallback((_){
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             if (snapshot.hasData) {
               if (snapshot.data!.exists) {
                 Navigator.of(context).pushNamedAndRemoveUntil(VerifyRole.routeName, (Route<dynamic> route) => false);
@@ -54,7 +54,7 @@ class VerifyRole extends StatelessWidget {
       body: FutureBuilder(
         future: db.collection('users').doc(auth.currentUser?.uid).get(),
         builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
-          WidgetsBinding.instance.addPostFrameCallback((_){
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             if (snapshot.hasData) {
               DataSingleton.userDoc = snapshot.data;
               Navigator.of(context).pushNamedAndRemoveUntil(HomeScreen.routeName, (Route<dynamic> route) => false);

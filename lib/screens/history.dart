@@ -1,8 +1,8 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'package:flutter/material.dart';
-import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/app_drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -17,6 +17,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return Scaffold(
       key: _key,
       body: SafeArea(
@@ -31,11 +33,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   onPressed: () => _key.currentState!.openDrawer(),
                   icon: const Icon(Icons.menu, size: 32),
                   splashRadius: 28,
-                  tooltip: 'Menu',
+                  tooltip: appLocal.menu,
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  "History",
+                  appLocal.history,
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
@@ -48,7 +50,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             Expanded(
               child: Center(
                 child: Text(
-                  "Feature Under Development",
+                  appLocal.featureUnderDev,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),

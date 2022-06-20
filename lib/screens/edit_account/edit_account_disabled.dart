@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sosite/utils/constants.dart';
 import 'package:sosite/utils/Data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditAccountDisabledScreen extends StatelessWidget {
   const EditAccountDisabledScreen({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final db = FirebaseFirestore.instance;
     final auth = FirebaseAuth.instance;
+    final appLocal = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -36,12 +38,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(),
                       icon: const Icon(Icons.arrow_back, size: 32),
                       splashRadius: 28,
-                      tooltip: 'Back',
+                      tooltip: appLocal.back,
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        "Edit Account",
+                        appLocal.editAccount,
                         style: Theme.of(context).textTheme.headline5?.copyWith(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
@@ -55,16 +57,16 @@ class EditAccountDisabledScreen extends StatelessWidget {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text("Are you sure?"),
+                                title: Text(appLocal.areYouSure),
                                 contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
                                 content: Text(
-                                  "Your account and funds will be deleted permanently.",
+                                  appLocal.yourAccountDeleted,
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.of(context).pop(),
-                                    child: const Text("NO"),
+                                    child: Text(appLocal.noUpper),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -74,25 +76,21 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                         if (kDebugMode) {
                                           print(e.toString());
                                         }
+                                        Constants.showSnackBar(context, e.message);
                                       });
                                     },
                                     style: TextButton.styleFrom(
                                       backgroundColor: Colors.red[800],
                                       primary: Colors.grey[50],
                                     ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        Text("YES"),
-                                      ],
-                                    ),
+                                    child: Text(appLocal.yesUpper),
                                   ),
                                   const SizedBox(width: 2),
                                 ],
                               );
                             });
                       },
-                      tooltip: "Delete Account",
+                      tooltip: appLocal.deleteAccount,
                       splashRadius: 24,
                       icon: const Icon(Icons.delete_outline),
                     ),
@@ -125,7 +123,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "First Name",
+                              appLocal.firstName,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -152,7 +150,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                               final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
                               return AlertDialog(
-                                title: const Text("Change First Name"),
+                                title: Text("${appLocal.change} ${appLocal.firstName}"),
                                 contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
                                 content: GestureDetector(
                                   onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -167,12 +165,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                           controller: firstNameController,
                                           style: Theme.of(context).textTheme.bodyText1,
                                           decoration: Constants.inputDecoration(
-                                            "First Name",
-                                            "Emmy",
+                                            appLocal.firstName,
+                                            appLocal.emmy,
                                             context,
                                           ),
                                           validator: (val) =>
-                                              val!.trim().isEmpty ? "Please enter your first name" : null,
+                                              val!.trim().isEmpty ? appLocal.validFirstName : null,
                                         ),
                                       ],
                                     ),
@@ -183,17 +181,17 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text("CANCEL"),
+                                    child: Text(appLocal.cancelUpper),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
-                                        db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        db.collection('users').doc(auth.currentUser!.uid).update({
                                           'firstName': firstNameController.text,
                                         }).then((value) => Navigator.of(context).pop());
                                       }
                                     },
-                                    child: const Text("APPLY"),
+                                    child: Text(appLocal.applyUpper),
                                   ),
                                 ],
                               );
@@ -207,7 +205,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Last Name",
+                              appLocal.lastName,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -234,7 +232,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                               final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
                               return AlertDialog(
-                                title: const Text("Change Last Name"),
+                                title: Text("${appLocal.change} ${appLocal.lastName}"),
                                 contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
                                 content: GestureDetector(
                                   onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -249,12 +247,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                           controller: lastNameController,
                                           style: Theme.of(context).textTheme.bodyText1,
                                           decoration: Constants.inputDecoration(
-                                            "Last Name",
-                                            "Freeman",
+                                            appLocal.lastName,
+                                            appLocal.freeman,
                                             context,
                                           ),
                                           validator: (val) =>
-                                              val!.trim().isEmpty ? "Please enter your last name" : null,
+                                              val!.trim().isEmpty ? appLocal.validLastName: null,
                                         ),
                                       ],
                                     ),
@@ -265,17 +263,17 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text("CANCEL"),
+                                    child: Text(appLocal.cancelUpper),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
-                                        db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        db.collection('users').doc(auth.currentUser!.uid).update({
                                           'lastName': lastNameController.text,
                                         }).then((value) => Navigator.of(context).pop());
                                       }
                                     },
-                                    child: const Text("APPLY"),
+                                    child: Text(appLocal.applyUpper),
                                   ),
                                 ],
                               );
@@ -289,7 +287,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Phone Number",
+                              appLocal.phoneNumber,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -307,7 +305,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.edit),
                         onTap: () {
-                          Constants.showSnackBar(context2, "Work in progress");
+                          Constants.showSnackBar(context2, appLocal.featureUnderDev);
                         },
                       ),
                       const SizedBox(height: 24),
@@ -316,7 +314,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Email Address",
+                              appLocal.emailAddress,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -343,7 +341,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                               final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
                               return AlertDialog(
-                                title: const Text("Change Email Address"),
+                                title: Text("${appLocal.change} ${appLocal.emailAddress}"),
                                 contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
                                 content: GestureDetector(
                                   onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -358,12 +356,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                           controller: lastNameController,
                                           style: Theme.of(context).textTheme.bodyText1,
                                           decoration: Constants.inputDecoration(
-                                            "Email Address",
-                                            "emmy@examlpe.com",
+                                            appLocal.emailAddress,
+                                            appLocal.emmyEmail,
                                             context,
                                           ),
                                           validator: (val) => val!.trim().isEmpty || !EmailValidator.validate(val)
-                                              ? "Please enter a valid email"
+                                              ? appLocal.validEmail
                                               : null,
                                         ),
                                       ],
@@ -375,17 +373,17 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text("CANCEL"),
+                                    child: Text(appLocal.cancelUpper),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
-                                        db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        db.collection('users').doc(auth.currentUser!.uid).update({
                                           'email': lastNameController.text,
                                         }).then((value) => Navigator.of(context).pop());
                                       }
                                     },
-                                    child: const Text("APPLY"),
+                                    child: Text(appLocal.applyUpper),
                                   ),
                                 ],
                               );
@@ -399,7 +397,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Birth Date",
+                              appLocal.birthDate,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -440,7 +438,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Country",
+                              appLocal.country,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -462,7 +460,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                             context: context,
                             showPhoneCode: false,
                             onSelect: (Country country) {
-                              db.collection('/users').doc(auth.currentUser!.uid).update({
+                              db.collection('users').doc(auth.currentUser!.uid).update({
                                 'country': country.displayNameNoCountryCode,
                               }).onError((error, stackTrace) {
                                 if (kDebugMode) {
@@ -479,7 +477,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "ID Number",
+                              appLocal.idNumber,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -506,7 +504,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                               final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
                               return AlertDialog(
-                                title: const Text("Change ID Number"),
+                                title: Text("${appLocal.change} ${appLocal.idNumber}"),
                                 contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
                                 content: GestureDetector(
                                   onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -521,12 +519,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                           controller: idNumberController,
                                           style: Theme.of(context).textTheme.bodyText1,
                                           decoration: Constants.inputDecoration(
-                                            "ID Number",
+                                            appLocal.idNumber,
                                             "XXXXXXXXX",
                                             context,
                                           ),
                                           validator: (val) =>
-                                              val!.trim().isEmpty ? "Please enter a valid ID number" : null,
+                                              val!.trim().isEmpty ? appLocal.validIdNumber : null,
                                         ),
                                       ],
                                     ),
@@ -537,12 +535,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text("CANCEL"),
+                                    child: Text(appLocal.cancelUpper),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
-                                        db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        db.collection('users').doc(auth.currentUser!.uid).update({
                                           'idNumber': idNumberController.text,
                                         }).then((value) => Navigator.of(context).pop(), onError: (e) {
                                           if (kDebugMode) {
@@ -551,7 +549,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                         });
                                       }
                                     },
-                                    child: const Text("APPLY"),
+                                    child: Text(appLocal.applyUpper),
                                   ),
                                 ],
                               );
@@ -565,7 +563,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Gender",
+                              appLocal.gender,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -588,14 +586,14 @@ class EditAccountDisabledScreen extends StatelessWidget {
                               builder: (context) {
                                 String? selectedRadio = DataSingleton.userDoc!.get('gender');
                                 return AlertDialog(
-                                  title: const Text('Select Gender'),
+                                  title: Text('${appLocal.select} ${appLocal.gender}'),
                                   contentPadding: EdgeInsets.zero,
                                   content: StatefulBuilder(
                                     builder: (BuildContext context, StateSetter setState) {
                                       final languages = [
-                                        'Male',
-                                        'Female',
-                                        'Other',
+                                        appLocal.male,
+                                        appLocal.female,
+                                        appLocal.other,
                                       ];
 
                                       return Column(
@@ -641,11 +639,11 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text('CANCEL'),
+                                      child: Text(appLocal.cancelUpper),
                                     ),
                                     TextButton(
                                       onPressed: () async {
-                                        db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        db.collection('users').doc(auth.currentUser!.uid).update({
                                           'gender': selectedRadio,
                                         }).then((value) => Navigator.of(context).pop(), onError: (e) {
                                           if (kDebugMode) {
@@ -653,7 +651,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                           }
                                         });
                                       },
-                                      child: const Text('APPLY'),
+                                      child: Text(appLocal.applyUpper),
                                     ),
                                   ],
                                 );
@@ -666,7 +664,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Disability",
+                              appLocal.disability,
                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.5,
@@ -694,19 +692,19 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                 );
 
                                 return AlertDialog(
-                                  title: const Text('Select Disability'),
+                                  title: Text('${appLocal.select} ${appLocal.disability}'),
                                   contentPadding: EdgeInsets.zero,
                                   content: StatefulBuilder(
                                     builder: (BuildContext context, StateSetter setState) {
                                       final languages = [
-                                        "Vision Impairment",
-                                        "Deaf or hard of hearing",
-                                        "Mental health conditions",
-                                        "Intellectual disability",
-                                        "Acquired brain injury",
-                                        "Autism spectrum disorder",
-                                        "Physical disability",
-                                        "Other",
+                                        appLocal.visionImpairment,
+                                        appLocal.deafHard,
+                                        appLocal.mentalHealth,
+                                        appLocal.intellectualDisability,
+                                        appLocal.acquiredBrainInjury,
+                                        appLocal.autismSpectrumDisorder,
+                                        appLocal.physicalDisability,
+                                        appLocal.other,
                                       ];
 
                                       return Column(
@@ -746,7 +744,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                             height: 1,
                                           ),
                                           Builder(builder: (context) {
-                                            if (selectedRadio == "Other") {
+                                            if (selectedRadio == appLocal.other) {
                                               return Column(
                                                 children: [
                                                   const SizedBox(height: 12),
@@ -760,12 +758,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                                         controller: descriptionController,
                                                         style: Theme.of(context).textTheme.bodyText1,
                                                         decoration: Constants.inputDecoration(
-                                                          "Disability Description ",
+                                                          appLocal.describeDisability,
                                                           DataSingleton.userDoc?.get('disabilityInfo') ?? '',
                                                           context,
                                                         ),
                                                         validator: (val) =>
-                                                            val!.trim().isEmpty ? "Please enter a description" : null,
+                                                            val!.trim().isEmpty ? appLocal.validDescription : null,
                                                       ),
                                                     ),
                                                   ),
@@ -787,22 +785,23 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text('CANCEL'),
+                                      child: Text(appLocal.cancelUpper),
                                     ),
                                     TextButton(
                                       onPressed: () async {
-                                        if (selectedRadio == 'Other' && formKey.currentState!.validate()) {
-                                          db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        if (selectedRadio == appLocal.other && formKey.currentState!.validate()) {
+                                          db.collection('users').doc(auth.currentUser!.uid).update({
                                             'disability': selectedRadio,
                                             'disabilityInfo': descriptionController.text,
                                           }).then((value) => Navigator.of(context).pop(), onError: (e) {
                                             if (kDebugMode) {
                                               print(e.toString());
                                             }
+                                            Constants.showSnackBar(context, e.message);
                                           });
                                         }
-                                        if (selectedRadio != 'Other') {
-                                          db.collection('/users').doc(auth.currentUser!.uid).update({
+                                        if (selectedRadio != appLocal.other) {
+                                          db.collection('users').doc(auth.currentUser!.uid).update({
                                             'disability': selectedRadio,
                                             'disabilityInfo': '',
                                           }).then((value) => Navigator.of(context).pop(), onError: (e) {
@@ -812,7 +811,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                           });
                                         }
                                       },
-                                      child: const Text('APPLY'),
+                                      child: Text(appLocal.applyUpper),
                                     ),
                                   ],
                                 );
@@ -831,7 +830,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Disability Description",
+                                        appLocal.disabilityDescription,
                                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                               fontWeight: FontWeight.w600,
                                               letterSpacing: 0.5,
@@ -858,7 +857,7 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                         final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
                                         return AlertDialog(
-                                          title: const Text("Change Disability Description"),
+                                          title: Text("${appLocal.change} ${appLocal.disabilityDescription}"),
                                           contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
                                           content: GestureDetector(
                                             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -873,12 +872,12 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                                     controller: idNumberController,
                                                     style: Theme.of(context).textTheme.bodyText1,
                                                     decoration: Constants.inputDecoration(
-                                                      "Disability Description",
+                                                      appLocal.disabilityDescription,
                                                       DataSingleton.userDoc?.get('disabilityInfo') ?? '',
                                                       context,
                                                     ),
                                                     validator: (val) =>
-                                                    val!.trim().isEmpty ? "Please enter a description" : null,
+                                                    val!.trim().isEmpty ? appLocal.validDescription : null,
                                                   ),
                                                 ],
                                               ),
@@ -889,21 +888,22 @@ class EditAccountDisabledScreen extends StatelessWidget {
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: const Text("CANCEL"),
+                                              child: Text(appLocal.cancelUpper),
                                             ),
                                             TextButton(
                                               onPressed: () {
                                                 if (formKey.currentState!.validate()) {
-                                                  db.collection('/users').doc(auth.currentUser!.uid).update({
+                                                  db.collection('users').doc(auth.currentUser!.uid).update({
                                                     'disabilityInfo': idNumberController.text,
                                                   }).then((value) => Navigator.of(context).pop(), onError: (e) {
                                                     if (kDebugMode) {
                                                       print(e.toString());
                                                     }
+                                                    Constants.showSnackBar(context, e.message);
                                                   });
                                                 }
                                               },
-                                              child: const Text("APPLY"),
+                                              child: Text(appLocal.applyUpper),
                                             ),
                                           ],
                                         );

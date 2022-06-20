@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 16 Jun, 2022
+/// Created by Amin BADH on 16 Jun, 2022 *
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/app_drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WalletAssistantScreen extends StatefulWidget {
   const WalletAssistantScreen({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('users')
@@ -50,11 +53,11 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
                       onPressed: () => _key.currentState!.openDrawer(),
                       icon: const Icon(Icons.menu, size: 32),
                       splashRadius: 28,
-                      tooltip: 'Menu',
+                      tooltip: appLocal.menu,
                     ),
                     const SizedBox(width: 16),
                     Text(
-                      "Wallet",
+                      appLocal.wallet,
                       style: Theme.of(context).textTheme.headline5?.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 24,
@@ -67,7 +70,7 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
                 const SizedBox(height: 12),
                 ListTile(
                   title: Text(
-                    "Balance",
+                    appLocal.balance,
                     style: Theme.of(context).textTheme.bodyText2?.copyWith(
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5,
@@ -91,7 +94,7 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
                   children: [
                     const SizedBox(width: 20),
                     Text(
-                      "Withdraw Funds",
+                      appLocal.withdrawFunds,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             fontWeight: FontWeight.w600,
                             letterSpacing: 0.5,
@@ -103,7 +106,7 @@ class _WalletAssistantScreenState extends State<WalletAssistantScreen> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      "Feature Under Development",
+                      appLocal.featureUnderDev,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),

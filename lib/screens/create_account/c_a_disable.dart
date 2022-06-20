@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
@@ -9,7 +9,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sosite/utils/constants.dart';
-import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/verify.dart';
 import 'package:sosite/widgets/create_account_text.dart';
 
@@ -36,17 +35,14 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
 
   DateTime selectedDate = DateTime(DateTime.now().year);
   bool hasChanged = false;
-  String _currentGenderValue = 'Male';
-  String _currentDisabilityValue = 'Vision Impairment';
   bool _agree = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final appLocal = AppLocalizations.of(context)!;
-    // just to remove the error
-    /// TODO delete.
-    appLocal.getCode;
+    String currentGenderValue = appLocal.male;
+    String currentDisabilityValue = appLocal.visionImpairment;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -71,11 +67,11 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                             controller: _firstNameController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "First Name",
-                              "Emmy",
+                              appLocal.firstName,
+                              appLocal.emmy,
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter your first name" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validFirstName : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -83,11 +79,11 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                             controller: _lastNameController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Last Name",
-                              "Freeman",
+                              appLocal.lastName,
+                              appLocal.freeman,
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter your full name" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validLastName : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -95,12 +91,12 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                             controller: _emailController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Email Address",
-                              "emmy@examlpe.com",
+                              appLocal.emailAddress,
+                              appLocal.emmyEmail,
                               context,
                             ),
                             validator: (val) => val!.trim().isEmpty || !EmailValidator.validate(val)
-                                ? "Please enter a valid email"
+                                ? appLocal.validEmail
                                 : null,
                           ),
                           const SizedBox(height: sep),
@@ -109,7 +105,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                             controller: _birthDateController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Birth Date",
+                              appLocal.birthDate,
                               "",
                               context,
                             ),
@@ -128,7 +124,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                               }
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
-                            validator: (val) => val!.trim().isEmpty ? "Please enter your birth date" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validBirthDate : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -136,7 +132,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                             controller: _countryController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "Country",
+                              appLocal.country,
                               "",
                               context,
                             ),
@@ -150,7 +146,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                               );
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
-                            validator: (val) => val!.trim().isEmpty ? "Please select your country" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validCountry : null,
                           ),
                           const SizedBox(height: sep),
                           TextFormField(
@@ -158,29 +154,29 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                             controller: _idNumController,
                             style: Theme.of(context).textTheme.bodyText1,
                             decoration: Constants.inputDecoration(
-                              "ID Number",
-                              "xxxxxxxxx",
+                              appLocal.idNumber,
+                              "XXXXXXXX",
                               context,
                             ),
-                            validator: (val) => val!.trim().isEmpty ? "Please enter a valid ID number" : null,
+                            validator: (val) => val!.trim().isEmpty ? appLocal.validIdNumber : null,
                           ),
                           const SizedBox(height: sep),
                           FormField<String>(
                             builder: (FormFieldState<String> state) {
                               return InputDecorator(
-                                decoration: Constants.inputDecoration("Gender", "", context),
-                                isEmpty: _currentGenderValue == '',
+                                decoration: Constants.inputDecoration(appLocal.gender, "", context),
+                                isEmpty: currentGenderValue == '',
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
-                                    value: _currentGenderValue,
+                                    value: currentGenderValue,
                                     isDense: true,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        _currentGenderValue = newValue ?? 'Male';
+                                        currentGenderValue = newValue ?? appLocal.male;
                                         state.didChange(newValue);
                                       });
                                     },
-                                    items: ["Male", "Female", "Other"].map((String value) {
+                                    items: [appLocal.male, appLocal.female, appLocal.other].map((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Text(
@@ -198,27 +194,27 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                           FormField<String>(
                             builder: (FormFieldState<String> state) {
                               return InputDecorator(
-                                decoration: Constants.inputDecoration("Disability", "", context),
-                                isEmpty: _currentDisabilityValue == '',
+                                decoration: Constants.inputDecoration(appLocal.disability, "", context),
+                                isEmpty: currentDisabilityValue == '',
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
-                                    value: _currentDisabilityValue,
+                                    value: currentDisabilityValue,
                                     isDense: true,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        _currentDisabilityValue = newValue ?? 'Vision Impairment';
+                                        currentDisabilityValue = newValue ?? appLocal.visionImpairment;
                                         state.didChange(newValue);
                                       });
                                     },
                                     items: [
-                                      "Vision Impairment",
-                                      "Deaf or hard of hearing",
-                                      "Mental health conditions",
-                                      "Intellectual disability",
-                                      "Acquired brain injury",
-                                      "Autism spectrum disorder",
-                                      "Physical disability",
-                                      "Other",
+                                      appLocal.visionImpairment,
+                                      appLocal.deafHard,
+                                      appLocal.mentalHealth,
+                                      appLocal.intellectualDisability,
+                                      appLocal.acquiredBrainInjury,
+                                      appLocal.autismSpectrumDisorder,
+                                      appLocal.physicalDisability,
+                                      appLocal.other,
                                     ].map((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -233,7 +229,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                               );
                             },
                           ),
-                          _currentDisabilityValue == "Other"
+                          currentDisabilityValue == appLocal.other
                               ? Column(
                                   children: [
                                     const SizedBox(height: sep),
@@ -243,11 +239,11 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                                       controller: _disabilityDescriptionController,
                                       style: Theme.of(context).textTheme.bodyText1,
                                       decoration: Constants.inputDecoration(
-                                        "Describe your disability",
+                                        appLocal.describeDisability,
                                         "",
                                         context,
                                       ),
-                                      validator: (val) => val!.trim().isEmpty ? "Please enter a description" : null,
+                                      validator: (val) => val!.trim().isEmpty ? appLocal.validDescription : null,
                                     ),
                                   ],
                                 )
@@ -256,14 +252,14 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                           CheckboxListTile(
                             title: RichText(
                               text: TextSpan(
-                                text: "I agree to the ",
+                                text: ("${appLocal.iAgreeOnThe} "),
                                 style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 0.3,
                                     ),
                                 children: [
                                   TextSpan(
-                                    text: "privacy policy",
+                                    text: appLocal.privacyPolicy,
 
                                     /// TODO
                                     recognizer: TapGestureRecognizer()..onTap = () {},
@@ -319,8 +315,8 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                                           'birthDate': selectedDate,
                                           'country': _countryController.text,
                                           'idNumber': _idNumController.text,
-                                          'gender': _currentGenderValue,
-                                          'disability': _currentDisabilityValue,
+                                          'gender': currentGenderValue,
+                                          'disability': currentDisabilityValue,
                                           'disabilityInfo': _disabilityDescriptionController.text,
                                           'role': "Disabled",
                                         }).then(
@@ -347,7 +343,7 @@ class _CreateAccountDisabledScreenState extends State<CreateAccountDisabledScree
                                       ),
                                     )
                                   : Text(
-                                      "Create Account",
+                                      appLocal.createAccount,
                                       style: theme.textTheme.bodyText2?.copyWith(
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1,

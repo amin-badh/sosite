@@ -1,5 +1,7 @@
-/// Created by Amin BADH on 14 Jun, 2022
+/// Created by Amin BADH on 14 Jun, 2022 *
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,8 +28,11 @@ import 'package:sosite/utils/themes.dart';
 import 'package:sosite/verify.dart';
 import 'firebase_options.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const App());
 }
 
@@ -50,6 +55,7 @@ class _AppState extends State<App> {
         return FutureBuilder(
           future: SharedPreferences.getInstance(),
           builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+
             if (snapshot.hasData) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 switch (snapshot.data!.getString(Constants.localeKey)) {
@@ -105,34 +111,33 @@ class _AppState extends State<App> {
                     statusBarIconBrightness: Brightness.dark,
                     statusBarBrightness: Brightness.light,
                   ),
-                  child: FutureBuilder(
-                    future: Firebase.initializeApp(
-                      options: DefaultFirebaseOptions.currentPlatform,
-                    ),
-                    builder: (_, snapshot) {
-                      /// TODO
-                      if (snapshot.hasError) return const SizedBox();
+                  child: Builder(
+                    builder: (context) {
+                      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
+                      FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
 
-                        FirebaseAuth.instance.userChanges().listen((User? user) {
-                          if (user == null) {
-                            _navigatorKey.currentState!
-                                .pushNamedAndRemoveUntil(SignInScreen.routeName, (Route<dynamic> route) => false);
-                          } else {
-                            _navigatorKey.currentState!
-                                .pushNamedAndRemoveUntil(VerifyAccount.routeName, (Route<dynamic> route) => false);
-                          }
-                        });
-                      }
+                      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+                        if (user == null) {
+                          _navigatorKey.currentState!
+                              .pushNamedAndRemoveUntil(SignInScreen.routeName, (Route<dynamic> route) => false);
+                        } else {
+                          _navigatorKey.currentState!
+                              .pushNamedAndRemoveUntil(VerifyAccount.routeName, (Route<dynamic> route) => false);
+                        }
+                      });
 
-                      /// TODO: Loading Screen
                       return const Scaffold();
                     },
                   ),
                 ),
               );
+            } else if (snapshot.hasError) {
+              if (kDebugMode) {
+                print(snapshot.error.toString());
+              }
+
+              return Container(color: Colors.grey[50]);
             } else {
               return Container(color: Colors.grey[50]);
             }

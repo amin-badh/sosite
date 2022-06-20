@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'dart:async';
 
@@ -16,6 +16,7 @@ import 'package:sosite/utils/Data.dart';
 import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/app_drawer.dart';
 import 'package:sosite/widgets/gradient_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeAssistantScreen extends StatefulWidget {
   const HomeAssistantScreen({Key? key}) : super(key: key);
@@ -37,6 +38,8 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return StreamBuilder(
         stream: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
         builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> userSnapshot) {
@@ -60,7 +63,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                               onPressed: () => _key.currentState!.openDrawer(),
                               icon: const Icon(Icons.menu, size: 32),
                               splashRadius: 28,
-                              tooltip: 'Menu',
+                              tooltip: appLocal.menu,
                             ),
                           ],
                         ),
@@ -77,7 +80,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       GradientText(
-                                        "Hey ${DataSingleton.userDoc?.get('firstName')}!",
+                                        "${appLocal.hey} ${DataSingleton.userDoc?.get('firstName')}!",
                                         gradient: LinearGradient(
                                           colors: [
                                             Theme.of(context).colorScheme.primary,
@@ -136,7 +139,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                                             Opacity(
                                                               opacity: 0.9,
                                                               child: Text(
-                                                                "Request Found!",
+                                                                appLocal.requestFound,
                                                                 style: Theme.of(context).textTheme.headline6?.copyWith(
                                                                       fontWeight: FontWeight.w600,
                                                                       letterSpacing: 1,
@@ -227,7 +230,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                                             Opacity(
                                                               opacity: 0.9,
                                                               child: Text(
-                                                                "Waiting for requests",
+                                                                appLocal.waitingForRequests,
                                                                 style: Theme.of(context).textTheme.headline6?.copyWith(
                                                                       fontWeight: FontWeight.w600,
                                                                       letterSpacing: 1,
@@ -305,7 +308,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                                             Opacity(
                                                               opacity: 0.9,
                                                               child: Text(
-                                                                "Ongoing Request!",
+                                                                appLocal.ongoingRequest,
                                                                 style: Theme.of(context).textTheme.headline6?.copyWith(
                                                                       fontWeight: FontWeight.w600,
                                                                       letterSpacing: 1,
@@ -372,7 +375,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                                           Opacity(
                                                             opacity: 0.9,
                                                             child: Text(
-                                                              "Waiting for Client",
+                                                              appLocal.waitingForClient,
                                                               style: Theme.of(context).textTheme.headline6?.copyWith(
                                                                     fontWeight: FontWeight.w600,
                                                                     letterSpacing: 1,
@@ -496,7 +499,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                                             Opacity(
                                                               opacity: 0.9,
                                                               child: Text(
-                                                                "Start Helping",
+                                                                appLocal.startHelping,
                                                                 style: Theme.of(context).textTheme.headline6?.copyWith(
                                                                       fontWeight: FontWeight.w600,
                                                                       letterSpacing: 1,
@@ -556,7 +559,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                         onTap: () => Navigator.pushNamed(context, WalletScreen.routeName),
                                         child: ListTile(
                                           title: Text(
-                                            "Wallet",
+                                            appLocal.wallet,
                                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                                   fontWeight: FontWeight.w600,
                                                   letterSpacing: 1,
@@ -577,7 +580,7 @@ class _HomeAssistantScreenState extends State<HomeAssistantScreen> {
                                         },
                                         child: ListTile(
                                           title: Text(
-                                            "History",
+                                            appLocal.history,
                                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                                   fontWeight: FontWeight.w600,
                                                   letterSpacing: 1,

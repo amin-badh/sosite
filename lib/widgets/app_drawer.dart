@@ -1,4 +1,4 @@
-/// Created by Amin BADH on 15 Jun, 2022
+/// Created by Amin BADH on 15 Jun, 2022 *
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +12,7 @@ import 'package:sosite/screens/wallet.dart';
 import 'package:sosite/utils/Data.dart';
 import 'package:sosite/utils/Utils.dart';
 import 'package:sosite/widgets/drawer_list_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key, required this.selected, this.rebuild}) : super(key: key);
@@ -21,6 +22,8 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+
     return Drawer(
       child: SafeArea(
         child: Column(
@@ -54,7 +57,7 @@ class AppDrawer extends StatelessWidget {
                             ),
                       ),
                       trailing: IconButton(
-                        tooltip: "Edit Account",
+                        tooltip: appLocal.editAccount,
                         icon: const Icon(Icons.edit),
                         splashRadius: 24,
                         onPressed: () {
@@ -72,7 +75,7 @@ class AppDrawer extends StatelessWidget {
                     Divider(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3)),
                     DrawerListTile(
                       icon: Icons.home_outlined,
-                      title: 'Home',
+                      title: appLocal.home,
                       selected: selected == 'home',
                       onTap: () {
                         Navigator.pop(context);
@@ -83,7 +86,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     DrawerListTile(
                       icon: Icons.wallet_outlined,
-                      title: 'Wallet',
+                      title: appLocal.wallet,
                       selected: selected == 'wallet',
                       onTap: () {
                         Navigator.pop(context);
@@ -94,7 +97,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     DrawerListTile(
                       icon: Icons.history,
-                      title: 'History',
+                      title: appLocal.history,
                       selected: selected == 'history',
                       onTap: () {
                         Navigator.pop(context);
@@ -105,7 +108,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     DrawerListTile(
                       icon: Icons.settings_outlined,
-                      title: 'Settings',
+                      title: appLocal.settings,
                       selected: selected == 'settings',
                       onTap: () {
                         Navigator.pop(context);
@@ -120,7 +123,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     DrawerListTile(
                       icon: Icons.logout,
-                      title: 'Logout',
+                      title: appLocal.logout,
                       selected: false,
                       onTap: () => FirebaseAuth.instance.signOut(),
                     ),

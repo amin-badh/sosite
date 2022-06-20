@@ -1,7 +1,7 @@
+/// Created by Amin BADH on 14 Jun, 2022 *
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-/// Created by Amin BADH on 14 Jun, 2022
 
 class Themes {
   static ThemeData appThemeData() {
