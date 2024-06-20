@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sosite/screens/create_account.dart';
 import 'package:sosite/screens/home.dart';
-import 'package:sosite/utils/Data.dart';
+import 'package:sosite/utils/data.dart';
 
 class VerifyAccount extends StatelessWidget {
   const VerifyAccount({Key? key}) : super(key: key);

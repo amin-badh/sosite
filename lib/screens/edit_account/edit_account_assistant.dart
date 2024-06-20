@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sosite/utils/constants.dart';
-import 'package:sosite/utils/Data.dart';
+import 'package:sosite/utils/data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditAccountAssistantScreen extends StatelessWidget {

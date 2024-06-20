@@ -8,7 +8,7 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:sosite/screens/home.dart';
-import 'package:sosite/utils/Data.dart';
+import 'package:sosite/utils/data.dart';
 import 'package:sosite/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

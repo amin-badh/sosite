@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sosite/screens/create_account/c_a_assistant.dart';
 import 'package:sosite/screens/create_account/c_a_disable.dart';
-import 'package:sosite/utils/Utils.dart';
+import 'package:sosite/utils/utils.dart';
 import 'package:sosite/widgets/create_account_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

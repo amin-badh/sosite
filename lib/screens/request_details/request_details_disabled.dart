@@ -264,7 +264,6 @@ class RequestDetailsDisabledScreen extends StatelessWidget {
                                         FirebaseFirestore.instance.doc(requestDoc.reference.path).get().then((value) {
                                           String state = value.get('state');
                                           if (state == 'completeAssistant') {
-                                            /// TODO: negative balance
                                             FirebaseFirestore.instance
                                                 .collection('users')
                                                 .doc(requestDoc.get('to'))

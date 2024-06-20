@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sosite/screens/request_details/request_details_assistant.dart';
 import 'package:sosite/screens/request_details/request_details_disabled.dart';
-import 'package:sosite/utils/Data.dart';
+import 'package:sosite/utils/data.dart';
 import 'package:sosite/widgets/error_support.dart';
 
 class RequestDetailsScreen extends StatelessWidget {

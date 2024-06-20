@@ -9,8 +9,8 @@ import 'package:sosite/screens/history.dart';
 import 'package:sosite/screens/home.dart';
 import 'package:sosite/screens/settings.dart';
 import 'package:sosite/screens/wallet.dart';
-import 'package:sosite/utils/Data.dart';
-import 'package:sosite/utils/Utils.dart';
+import 'package:sosite/utils/data.dart';
+import 'package:sosite/utils/utils.dart';
 import 'package:sosite/widgets/drawer_list_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

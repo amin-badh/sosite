@@ -185,8 +185,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                   RichText(
                                     text: TextSpan(
                                       text: appLocal.support,
-
-                                      /// TODO
                                       recognizer: TapGestureRecognizer()..onTap = () {},
                                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                             decoration: TextDecoration.underline,
@@ -204,8 +202,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                   RichText(
                                     text: TextSpan(
                                       text: appLocal.privacyPolicyUp,
-
-                                      /// TODO
                                       recognizer: TapGestureRecognizer()..onTap = () {},
                                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                             decoration: TextDecoration.underline,

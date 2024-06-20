@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sosite/screens/get_help/get_help_assistants.dart';
 import 'package:sosite/utils/constants.dart';
-import 'package:sosite/utils/Data.dart';
+import 'package:sosite/utils/data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GetHelpInfoScreen extends StatefulWidget {

@@ -214,8 +214,6 @@ class _CreateAccountAssistantScreenState extends State<CreateAccountAssistantScr
                                 children: [
                                   TextSpan(
                                     text: appLocal.privacyPolicy,
-
-                                    /// TODO
                                     recognizer: TapGestureRecognizer()..onTap = () {},
                                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                           decoration: TextDecoration.underline,

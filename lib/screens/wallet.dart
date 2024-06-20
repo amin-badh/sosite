@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sosite/screens/wallet/wallet_disabled.dart';
 import 'package:sosite/screens/wallet/wallet_assistant.dart';
-import 'package:sosite/utils/Data.dart';
+import 'package:sosite/utils/data.dart';
 import 'package:sosite/widgets/error_support.dart';
 
 class WalletScreen extends StatelessWidget {
