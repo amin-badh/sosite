@@ -31,8 +31,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-####
-/.builds/
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -47,3 +45,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# App Release Builds
+.app/
+
+# FVM Version Cache
+.fvm/
